@@ -13,10 +13,13 @@ func welcome(w http.ResponseWriter, r *http.Request) {
     c := appengine.NewContext(r)
     u := user.Current(c)
     if u == nil {
-        url, _ := user.LoginURLFederated(c, "/", "twitter.com")
+        url, err := user.LoginURLFederated(c, "/", "https://www.google.com/accounts/o8/id")
+        if err != nil {
+            fmt.Fprintf(w, "hoge", err)
+        }
         fmt.Fprintf(w, `<a href="%s">Sign in or register using twitter</a>`, url)
         return
     }
     url, _ := user.LogoutURL(c, "/")
-    fmt.Fprintf(w, `Welcome, %s! (<a href="%s">sign out</a>)`, u, url)
+    fmt.Fprintf(w, `Welcome, %s! %s@%s (<a href="%s">sign out</a>)`, u.Email, u.AuthDomain, u.FederatedIdentity, url)
 }

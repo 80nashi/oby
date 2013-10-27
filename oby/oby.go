@@ -7,6 +7,6 @@ import (
 
 func init() {
     http.HandleFunc("/", welcome)
-    http.HandleFunc("/protected", protected)
+    http.HandleFunc("/openIdLogin", openIdLogin)
     http.HandleFunc("/_ah/login_required", openIdHandler)
 }

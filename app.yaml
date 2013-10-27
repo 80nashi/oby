@@ -4,9 +4,11 @@ runtime: go
 api_version: go1
 
 handlers:
-- url: /protected
-  script: _go_app
-  login: required
+- url: /_ah/login_required
+  script: openIdHandler.go
+
+- url: /openIdLogin
+  script: openIdLogin.go
 
 - url: /.*
   script: _go_app
