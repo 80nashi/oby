@@ -1,15 +1,12 @@
 package oby
 
 import (
-    "fmt"
+    _ "fmt"
     "net/http"
 )
 
 func init() {
-    http.HandleFunc("/", handler)
-    http.HandleFunc("/welcome", welcome)
-}
-
-func handler(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprint(w, "Hello, world!")
+    http.HandleFunc("/", welcome)
+    http.HandleFunc("/protected", protected)
+    http.HandleFunc("/_ah/login_required", openIdHandler)
 }

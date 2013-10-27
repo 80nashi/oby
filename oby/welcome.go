@@ -13,8 +13,8 @@ func welcome(w http.ResponseWriter, r *http.Request) {
     c := appengine.NewContext(r)
     u := user.Current(c)
     if u == nil {
-        url, _ := user.LoginURL(c, "/")
-        fmt.Fprintf(w, `<a href="%s">Sign in or register</a>`, url)
+        url, _ := user.LoginURLFederated(c, "/", "twitter.com")
+        fmt.Fprintf(w, `<a href="%s">Sign in or register using twitter</a>`, url)
         return
     }
     url, _ := user.LogoutURL(c, "/")
